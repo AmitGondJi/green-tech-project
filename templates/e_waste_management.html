@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <h1 class="text-success fw-bold mb-4">E-Waste Management: The 3 R's of Responsible Tech</h1>
+        <p class="lead text-secondary">
+            Electronic waste (e-waste) is the fastest-growing waste stream globally. It contains toxic materials like lead and mercury, which pollute our soil and water. Learn how to responsibly handle your old electronics and protect the planet.
+        </p>
+        
+        <hr class="my-5">
+
+        <h2 class="text-primary mb-3"><i class="bi bi-box-arrow-down-right"></i> 1. REDUCE: Minimize Waste from the Start</h2>
+        <p>The greenest device is the one you don't have to buy. Extend the life of your current tech to reduce manufacturing demand and future waste.</p>
+        
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card h-100 p-3 shadow-sm border-0">
+                    <h5 class="card-title text-success fw-bold">Buy Durable, Not Disposable</h5>
+                    <p class="card-text">Prioritize products with longer warranties, modular designs (easy to repair), and third-party certifications (like **TCO Certified** or **EPEAT**) that verify sustainability.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 p-3 shadow-sm border-0">
+                    <h5 class="card-title text-success fw-bold">Repair Before You Replace</h5>
+                    <p class="card-text">Before buying new, check if your device can be repaired. Replacing a battery or a cracked screen is often far cheaper and more eco-friendly than purchasing a whole new unit.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-primary mb-3"><i class="bi bi-arrow-repeat"></i> 2. REUSE: Extend the Device Lifespan</h2>
+        <p>If you no longer need a device, there are many ways to give it a second purpose rather than letting it gather dust.</p>
+        
+        <ul class="list-group list-group-flush mb-5">
+            <li class="list-group-item"><strong class="text-success">Repurpose:</strong> Turn an old smartphone into a dedicated security camera, music player, or a smart home remote.</li>
+            <li class="list-group-item"><strong class="text-success">Donate:</strong> Local schools, libraries, or charities often accept working or lightly used electronics. Always check what they accept first!</li>
+            <li class="list-group-item"><strong class="text-success">Sell:</strong> Use marketplaces (like eBay or specialized trade-in sites) to ensure functional technology continues to be used by someone else.</li>
+        </ul>
+
+        <h2 class="text-primary mb-3"><i class="bi bi-recycle"></i> 3. RECYCLE: The Responsible Final Step</h2>
+        <p>When a device truly cannot be repaired or reused, responsible recycling is the only way to recover valuable materials and prevent toxins from entering landfills.</p>
+        
+        <div class="alert alert-danger" role="alert">
+            <h5 class="alert-heading fw-bold"><i class="bi bi-shield-fill-exclamation"></i> CRITICAL: Secure Your Data First!</h5>
+            Before recycling, you must perform a **secure data wipe** (factory reset) on all devices, especially phones, tablets, and computers. Simple deletion is not enough to protect your privacy.
+        </div>
+        
+        <h4 class="mt-4 text-success">Where to Recycle Safely:</h4>
+        <ol>
+            <li><strong>Retailer Take-Back Programs:</strong> Many major electronics stores (e.g., Best Buy, Staples) offer free, year-round recycling for batteries, phones, and computers.</li>
+            <li><strong>Local Government Events:</strong> Check your city's waste management website for special collection days or permanent hazardous waste facilities.</li>
+            <li><strong>Certified Recyclers:</strong> Look for recyclers certified by organizations like **e-Stewards** or **R2 (Responsible Recycling)**. These certifications ensure ethical handling and prevent illegal export of waste.</li>
+        </ol>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5 fade-in">
+  <h1 class="text-center text-success fw-bold mb-4">
+    🌱 Carbon Footprint Calculator
+  </h1>
+
+  <!-- Calculator Form -->
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-lg p-4">
+        <form method="POST">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Your Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Electricity Usage (kWh/month)</label>
+            <input type="number" name="electricity" class="form-control" placeholder="e.g., 200" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Water Consumption (liters/day)</label>
+            <input type="number" name="water" class="form-control" placeholder="e.g., 500" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Weekly Travel Distance (km)</label>
+            <input type="number" name="travel" class="form-control" placeholder="e.g., 50" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Waste Generated (kg/week)</label>
+            <input type="number" name="waste" class="form-control" placeholder="e.g., 5" required>
+          </div>
+
+          <button type="submit" class="btn btn-success w-100 mt-3">
+            Calculate & Save
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result Section -->
+  {% if result is not none %}
+  <div class="alert alert-info text-center mt-5 shadow-sm p-4 fade-in">
+    <h4 class="fw-bold">Your Estimated Carbon Footprint:</h4>
+    <p class="fw-bold display-6 text-success">{{ result }} kg CO₂ / month</p>
+    <p class="text-muted">
+      Try lowering electricity & travel usage to reduce your footprint! 🌍💚
+    </p>
+
+    <!-- Chart Container -->
+    <div class="d-flex justify-content-center mt-4">
+      <div style="width:100%; max-width:350px;">
+        <canvas id="footprintChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Eco Tips -->
+    <div class="mt-4 text-start">
+      <h5 class="text-success">💡 Eco Tips:</h5>
+      <ul>
+        <li>Switch to LED lighting to cut electricity usage.</li>
+        <li>Fix leaks to reduce water waste.</li>
+        <li>Carpool or bike to lower travel emissions.</li>
+        <li>Compost organic waste to reduce landfill impact.</li>
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Leaderboard / Recent Submissions -->
+  {% if history %}
+  <div class="mt-5 fade-in">
+    <h3 class="text-success text-center">🏆 Recent Submissions</h3>
+    <div class="table-responsive mt-3">
+      <table class="table table-striped shadow-sm">
+        <thead class="table-success">
+          <tr>
+            <th>Name</th>
+            <th>Total CO₂ (kg)</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in history %}
+          <tr>
+            <td>{{ entry.name }}</td>
+            <td>
+              {{ entry.total_co2 }}
+              {% if entry.total_co2 < 100 %}
+              <span class="badge bg-success ms-2">Eco Hero</span>
+              {% elif entry.total_co2 < 300 %}
+              <span class="badge bg-warning text-dark ms-2">On Track</span>
+              {% else %}
+              <span class="badge bg-danger ms-2">Needs Action</span>
+              {% endif %}
+            </td>
+            <td>{{ entry.date_submitted.strftime('%Y-%m-%d %H:%M') }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Chart.js Script -->
+{% if result is not none %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const electricity = {{ request.form.get('electricity', 0) }};
+  const water = {{ request.form.get('water', 0) }};
+  const travel = {{ request.form.get('travel', 0) }};
+  const waste = {{ request.form.get('waste', 0) }};
+
+  const ctx = document.getElementById('footprintChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Electricity', 'Water', 'Travel', 'Waste'],
+      datasets: [{
+        label: 'CO₂ Breakdown (kg)',
+        data: [
+          electricity * 0.82,
+          water * 0.0003,
+          travel * 0.21,
+          waste * 1.9
+        ],
+        backgroundColor: [
+          '#4caf50',
+          '#03a9f4',
+          '#ff9800',
+          '#9c27b0'
+        ],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            color: '#333',
+            font: {
+              size: 14
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return `${context.label}: ${context.raw.toFixed(2)} kg CO₂`;
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+{% endif %}
+
+{% endblock %}

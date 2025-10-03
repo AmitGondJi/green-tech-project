@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <h1 class="text-success fw-bold mb-4">Energy Efficiency: Power-Saving Tips for Your Devices</h1>
+        <p class="lead text-secondary">
+            The IT industry's power consumption is massive. By making small changes to your habits and settings, you can drastically cut down on the energy used by your computer, monitor, and network gear.
+        </p>
+        
+        <hr class="my-5">
+
+        <h2 class="text-primary mb-3"><i class="bi bi-laptop"></i> 1. Smart Use: Tweak Your System Settings</h2>
+        <p>The easiest energy savings come from optimizing how your operating system manages power.</p>
+        
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card h-100 p-3 shadow-sm border-0">
+                    <h5 class="card-title text-success fw-bold">Master Sleep Modes</h5>
+                    <p class="card-text">Set your computer to enter **Sleep or Hibernate mode** after 10-15 minutes of inactivity. **Shut down** completely if you won't use the device for more than 2 hours.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 p-3 shadow-sm border-0">
+                    <h5 class="card-title text-success fw-bold">Optimize Display Settings</h5>
+                    <p class="card-text">Use the **lowest comfortable screen brightness**. Also, switch to a **dark theme** or use a simple black desktop background, as this can save energy on modern OLED/AMOLED screens.</p>
+                </div>
+            </div>
+        </div>
+        
+        <ul class="list-group list-group-flush mb-5">
+            <li class="list-group-item"><strong class="text-success">Close Apps:</strong> Shut down background applications and browser tabs you aren't actively using, as they consume CPU and memory, which demands more power.</li>
+            <li class="list-group-item"><strong class="text-success">Disable Peripherals:</strong> Unplug USB devices, external drives, and even turn off the webcam when not in use.</li>
+        </ul>
+
+
+        <h2 class="text-primary mb-3"><i class="bi bi-house-door-fill"></i> 2. Green Hardware & Physical Habits</h2>
+        <p>Your hardware and how you power it have a massive impact on overall energy consumption.</p>
+        
+        <ol class="list-group list-group-numbered mb-5">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Combat Vampire Power</div>
+                    Unplug phone chargers, power adapters, and appliances that continue to draw electricity even when the device is off or fully charged. Use a **power strip** and switch it off completely.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Choose Laptops Over Desktops</div>
+                    A **laptop** uses significantly less power (often 50-80% less) than a desktop PC performing the same tasks. If performance isn't critical, opt for a laptop or thin client.
+                </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Upgrade to Energy Star</div>
+                    When buying new monitors, printers, or networking gear, look for the **ENERGY STAR** label, which guarantees high energy efficiency standards.
+                </div>
+            </li>
+        </ol>
+        
+        <div class="card bg-light p-4 shadow-sm">
+            <h4 class="text-success fw-bold">Did you know?</h4>
+            <p>One hour of gaming on a powerful desktop can use as much power as watching **10 hours of video** on a modern laptop.</p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

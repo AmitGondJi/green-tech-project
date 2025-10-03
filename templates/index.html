@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Hero Section -->
+<div class="p-5 text-center bg-light rounded-3 shadow-sm mb-5">
+  <div class="container-fluid py-5">
+    <h1 class="display-3 text-success fw-bolder mb-3 animate__animated animate__fadeInDown">
+      Green Technology Awareness Platform
+    </h1>
+
+    <p class="fs-5 text-secondary mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+      Empowering students and educators to adopt <strong>eco-friendly IT practices</strong>
+      for a cleaner and greener digital world.
+    </p>
+
+    <!-- Hero Image -->
+    <img src="{{ url_for('static', filename='images/green.jpg') }}"
+         alt="Green Technology Concept"
+         class="img-fluid rounded-4 shadow-lg my-5 animate__animated animate__zoomIn animate__delay-2s"
+         style="max-height: 400px; width: auto; border: 5px solid rgba(25, 135, 84, 0.1);">
+
+    <!-- CTA Button -->
+    <a href="{{ url_for('tutorials') }}"
+       class="btn btn-success btn-lg px-5 py-3 shadow-lg animate__animated animate__pulse animate__infinite">
+      Start Your Green IT Journey 
+      <i class="bi bi-arrow-right-circle ms-2"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Why Green IT Matters Section -->
+<section class="container mt-5 pt-4">
+  <h2 class="text-center text-success fw-bold mb-5 animate__animated animate__fadeInUp">
+    Why Green IT Matters
+  </h2>
+
+  <div class="row g-4">
+
+    <!-- Energy Consumption Card -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm text-center p-3">
+        <div class="card-body">
+          <i class="bi bi-lightning-fill text-danger pulse-icon"></i>
+          <h3 class="display-4 fw-bold text-danger my-3">4%</h3>
+          <p class="card-text text-muted">
+            The IT industry consumes nearly <strong>4% of global electricity</strong> — a figure that is rapidly growing.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- E-Waste Card -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-sm text-center p-3">
+        <div class="card-body">
+          <i class="bi bi-trash-fill text-warning shake-icon"></i>
+          <h3 class="display-4 fw-bold text-warning my-3">Millions</h3>
+          <p class="card-text text-muted">
+            It generates <strong>millions of tons of toxic e-waste</strong> every year, polluting our planet.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Goal Card -->
+    <div class="col-md-4">
+      <div class="card h-100 bg-success text-white shadow-lg text-center p-3 position-relative">
+        <div class="card-body">
+          <i class="bi bi-lightbulb-fill glow-icon"></i>
+          <h3 class="display-4 fw-bold my-3">Our Goal</h3>
+          <p class="card-text">
+            Our mission is to <strong>raise awareness, reduce waste, and encourage renewable energy</strong> adoption in computing.
+          </p>
+          <span class="badge bg-warning text-dark position-absolute bottom-0 end-0 m-3 px-3 py-1 shadow animate__animated animate__rubberBand">
+            Act Now!
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Custom Animations -->
+<style>
+  .pulse-icon {
+      font-size: 3rem;
+      animation: pulse 1.5s infinite alternate;
+  }
+  .shake-icon {
+      font-size: 3rem;
+      animation: shake 1.5s infinite alternate;
+  }
+  .glow-icon {
+      font-size: 3rem;
+      animation: glow 2s infinite alternate;
+  }
+
+  @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.15); }
+  }
+  @keyframes shake {
+      0% { transform: rotate(-10deg); }
+      100% { transform: rotate(10deg); }
+  }
+  @keyframes glow {
+      0% { filter: drop-shadow(0 0 5px yellow); }
+      100% { filter: drop-shadow(0 0 20px yellow); }
+  }
+</style>
+
+{% endblock %}

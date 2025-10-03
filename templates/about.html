@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+    <!-- Page Title -->
+    <h1 class="text-center text-success fw-bold mb-4 animate__animated animate__fadeInDown">
+        About the Project
+    </h1>
+
+    <!-- Intro Section -->
+    <p class="text-center fs-5 text-muted mb-5 animate__animated animate__fadeInUp animate__delay-1s">
+        The <strong>Green Technology Awareness Platform</strong> is a BCA 5th-semester minor project
+        designed to educate students and educators about <em>sustainable IT practices</em>.
+        With the growth of digital infrastructure, energy usage and e-waste generation have risen sharply.
+        This platform bridges the knowledge gap by offering <strong>interactive tutorials, guides, and resources</strong>
+        to promote eco-friendly computing in academic communities.
+    </p>
+
+    <!-- Info Cards -->
+    <div class="row g-4">
+
+        <!-- Problem Statement -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4 animate__animated animate__fadeInLeft">
+                <div class="card-body">
+                    <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size:3rem;"></i>
+                    <h4 class="text-success fw-bold mt-3">Problem Statement</h4>
+                    <ul class="list-unstyled text-muted mt-3">
+                        <li>• Limited knowledge of eco-friendly IT among students and faculty.</li>
+                        <li>• Existing campaigns lack interactive engagement tools.</li>
+                        <li>• Minimal understanding of e-waste disposal and recycling methods.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Objectives -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4 animate__animated animate__fadeInUp">
+                <div class="card-body">
+                    <i class="bi bi-bullseye text-primary" style="font-size:3rem;"></i>
+                    <h4 class="text-success fw-bold mt-3">Objectives</h4>
+                    <ul class="list-unstyled text-muted mt-3">
+                        <li>• Build a <strong>responsive website</strong> for all devices.</li>
+                        <li>• Provide tutorials & guides for Green IT adoption.</li>
+                        <li>• Encourage sustainable digital habits through awareness & education.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scope -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm text-center p-4 animate__animated animate__fadeInRight">
+                <div class="card-body">
+                    <i class="bi bi-globe2 text-success" style="font-size:3rem;"></i>
+                    <h4 class="text-success fw-bold mt-3">Scope</h4>
+                    <p class="text-muted mt-3">
+                        The platform acts as a <strong>centralized digital hub</strong> to
+                        inspire behavior change, guide institutions on best practices,
+                        and promote <strong>eco-friendly computing</strong> across academic communities.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

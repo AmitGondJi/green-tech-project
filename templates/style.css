@@ -1,0 +1,36 @@
+body {
+    background-color: #f7fff7;
+}
+
+h1, h2, h4 {
+    color: #198754;
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.card {
+    border-radius: 15px;
+}
+
+button:hover {
+    background-color: #228B22 !important;
+    transform: scale(1.05);
+    transition: 0.2s ease-in-out;
+}
+
+.alert {
+    border-radius: 12px;
+}
+@media (max-width: 576px) {
+  h1 { font-size: 1.6rem; }
+  .display-6 { font-size: 1.8rem; }
+  .btn { font-size: 0.9rem; padding: 0.5rem; }
+}
+.footer-icons a:hover {
+  color: #ffd700;
+  transform: scale(1.2);
+}

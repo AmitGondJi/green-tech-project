@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="text-success fw-bold">Contact Us</h2>
+<p>Have questions or suggestions? Share your feedback below:</p>
+<form method="POST">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+    </div>
+    <div class="text-center mt-4">
+  <h5>Support Green Technology 🌱</h5>
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://rzp.io/l/yourcustomlink" alt="Donate QR Code">
+  <p class="mt-2">Scan to donate and support sustainability 💚</p>
+</div>
+
+    <button type="submit" class="btn btn-success">Send Message</button>
+</form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-success mt-3">
+      {{ messages[0] }}
+    </div>
+  {% endif %}
+{% endwith %}
+{% endblock %}

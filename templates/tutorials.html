@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="text-center text-success fw-bold mb-4 animate__animated animate__fadeInDown">
+    Green IT Tutorials
+</h1>
+<p class="lead text-secondary text-center mb-5 animate__animated animate__fadeInUp">
+    Learn practical steps to reduce your digital carbon footprint 
+    and contribute to a sustainable future.
+</p>
+
+<div class="row g-4">
+
+    <!-- E-Waste Management -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-lg border-0 tutorial-card animate__animated animate__fadeInLeft">
+            <a href="{{ url_for('e_waste_management') }}" aria-label="View E-Waste Management Tutorial">
+                <img src="{{ url_for('static', filename='images/ewaste.jpg') }}" class="card-img-top tutorial-img" alt="E-waste">
+            </a>
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-success fw-bold">E-Waste Management</h5>
+                <p class="card-text text-muted flex-grow-1">
+                    <strong>Actionable Focus:</strong> Learn the 3 R's (Reduce, Reuse, Recycle), secure data wiping, and certified disposal methods.
+                </p>
+                <a href="{{ url_for('e_waste_management') }}" class="btn btn-success mt-3 shadow-sm">View Tutorial →</a>
+                <a href="https://en.wikipedia.org/wiki/Electronic_waste" target="_blank" class="small text-decoration-none text-primary mt-2">Read more on Wikipedia ↗</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Energy Efficiency -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-lg border-0 tutorial-card animate__animated animate__fadeInUp">
+            <a href="{{ url_for('energy_efficiency') }}" aria-label="View Energy Efficiency Tutorial">
+                <img src="{{ url_for('static', filename='images/energy.jpg') }}" class="card-img-top tutorial-img" alt="Energy Efficiency">
+            </a>
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-success fw-bold">Energy Efficiency Tips</h5>
+                <p class="card-text text-muted flex-grow-1">
+                    <strong>Actionable Focus:</strong> Power-saving settings, smart device usage, and Energy Star alternatives to lower your carbon footprint.
+                </p>
+                <a href="{{ url_for('energy_efficiency') }}" class="btn btn-success mt-3 shadow-sm">View Tutorial →</a>
+                <a href="https://en.wikipedia.org/wiki/Efficient_energy_use" target="_blank" class="small text-decoration-none text-primary mt-2">Read more on Wikipedia ↗</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sustainable Hardware -->
+    <div class="col-md-4">
+        <div class="card h-100 shadow-lg border-0 tutorial-card animate__animated animate__fadeInRight">
+            <a href="{{ url_for('sustainable_hardware') }}" aria-label="View Sustainable Hardware Tutorial">
+                <img src="{{ url_for('static', filename='images/hardware.jpg') }}" class="card-img-top tutorial-img" alt="Sustainable Hardware">
+            </a>
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-success fw-bold">Sustainable Hardware</h5>
+                <p class="card-text text-muted flex-grow-1">
+                    <strong>Actionable Focus:</strong> Choose long-lasting, repairable devices and maintain them to extend their lifecycle.
+                </p>
+                <a href="{{ url_for('sustainable_hardware') }}" class="btn btn-success mt-3 shadow-sm">View Tutorial →</a>
+                <a href="https://en.wikipedia.org/wiki/Sustainable_design" target="_blank" class="small text-decoration-none text-primary mt-2">Read more on Wikipedia ↗</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+.tutorial-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.tutorial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+.tutorial-img {
+    height: 200px;
+    object-fit: cover;
+}
+</style>
+
+{% endblock %}

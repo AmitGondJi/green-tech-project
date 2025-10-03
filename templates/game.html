@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5 fade-in">
+  <h1 class="text-center text-success fw-bold mb-4">🌿 Green IT Truth or Myth Challenge</h1>
+  <p class="lead text-center text-muted">Test your knowledge on Energy Efficiency, E-Waste, and Sustainable Hardware in 60 seconds!</p>
+
+  <!-- Name Input -->
+  <div class="text-center mb-4">
+    <input type="text" id="player-name" class="form-control w-50 mx-auto" placeholder="Enter your name to save score" required>
+  </div>
+
+  <!-- Game Container -->
+  <div id="game-container" class="card shadow-lg p-4 mx-auto" style="max-width: 600px;">
+    <div class="d-flex justify-content-between mb-4 fw-bold">
+      <span class="text-primary">Score: <span id="score">0</span></span>
+      <span class="text-danger">Time: <span id="timer">60</span>s</span>
+    </div>
+
+    <div id="question-area" class="text-center mb-4">
+      <h5 id="topic-tag" class="text-muted mb-2"></h5>
+      <h3 id="question-text" class="mb-3">Click "Start Game" to begin!</h3>
+      <div id="feedback" class="py-2 fw-bold" style="min-height: 40px;"></div>
+    </div>
+
+    <div id="button-area" class="d-grid gap-2">
+      <button id="start-button" class="btn btn-lg btn-success">Start Game</button>
+      <div id="game-buttons" class="d-none d-grid gap-2 d-md-flex justify-content-md-center">
+        <button id="truth-button" class="btn btn-lg btn-outline-success mx-2" disabled>TRUTH</button>
+        <button id="myth-button" class="btn btn-lg btn-outline-danger mx-2" disabled>MYTH</button>
+        <button id="end-button" class="btn btn-lg btn-outline-secondary">End Game</button>
+
+    </div>
+    </div>
+  </div>
+
+  <!-- Game Over Message -->
+  <div id="game-over-message" class="text-center mt-4 d-none fade-in">
+    <h2 class="text-primary">⏱️ Game Over!</h2>
+    <p class="lead">Final Score: <span id="final-score" class="fw-bold">0</span></p>
+    <div id="badge-area" class="mb-3"></div>
+    <button class="btn btn-info mt-2" onclick="location.reload()">Play Again</button>
+    <audio id="game-over-sound" src="{{ url_for('static', filename='sounds/game-over.mp3') }}"></audio>
+     <audio id="correct-sound" src="{{ url_for('static', filename='sounds/correct.mp3') }}"></audio>
+<audio id="wrong-sound" src="{{ url_for('static', filename='sounds/wrong.mp3') }}"></audio>
+<!-- Share Buttons -->
+<div class="mt-3">
+  <button class="btn btn-success me-2" onclick="shareWhatsApp()">📱 Share on WhatsApp</button>
+  <button class="btn btn-primary" onclick="shareTwitter()">🐦 Share on Twitter</button>  <!-- Share via QR -->
+  <button class="btn btn-dark mt-2" onclick="showQR()">📲 Share via QR</button>
+  <div id="qr-container" class="mt-3 d-none"></div>
+
+
+</div>
+
+  </div>
+
+  <!-- Leaderboard -->
+  {% if leaderboard %}
+  <div class="mt-5 fade-in">
+    <h3 class="text-success text-center">🏆 Top Players</h3>
+    <table class="table table-striped shadow-sm mt-3">
+      <thead class="table-success">
+        <meta property="og:title" content="🌿 Green IT Challenge">
+<meta property="og:description" content="Test your eco-knowledge and become a #GreenTechHero!">
+<meta property="og:image" content="https://yourdomain.com/static/images/preview.png">
+<meta property="og:url" content="https://yourdomain.com/game">
+
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in leaderboard %}
+        <tr>
+          <td>{{ entry.name }}</td>
+          <td>{{ entry.score }}</td>
+          <td>{{ entry.date_played.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Game Script -->
+<script>
+  const questions = [
+    { q: "Putting your PC to sleep saves more energy than shutting it down completely.", a: false, topic: "Energy" },
+    { q: "A secure factory reset is always necessary before recycling an old phone.", a: true, topic: "E-Waste" },
+    { q: "Using a laptop uses significantly less energy than an equivalent desktop computer.", a: true, topic: "Energy" },
+    { q: "The biggest environmental impact of a computer occurs during its manufacturing.", a: true, topic: "Hardware" },
+    { q: "Monitors and TVs are safe to dispose of in regular residential trash bins.", a: false, topic: "E-Waste" },
+    { q: "Unplugging chargers that aren't connected to a device saves negligible energy.", a: false, topic: "Energy" },
+    { q: "Modular hardware is generally more sustainable because it's easier to repair/upgrade.", a: true, topic: "Hardware" },
+    { q: "LED lightbulbs are a green tech and are 100% free of hazardous materials.", a: false, topic: "E-Waste" }
+  ];
+
+  let currentQuestionIndex = 0;
+  let score = 0;
+  let timeLeft = 60;
+  let timerInterval;
+  let gameActive = false;
+
+ const elements = {
+  score: document.getElementById('score'),
+  timer: document.getElementById('timer'),
+  questionText: document.getElementById('question-text'),
+  topicTag: document.getElementById('topic-tag'),
+  feedback: document.getElementById('feedback'),
+  startButton: document.getElementById('start-button'),
+  gameButtons: document.getElementById('game-buttons'),
+  truthButton: document.getElementById('truth-button'),
+  mythButton: document.getElementById('myth-button'),
+  endButton: document.getElementById('end-button'), // ✅ Add this line
+  gameOverMessage: document.getElementById('game-over-message'),
+  finalScore: document.getElementById('final-score'),
+  badgeArea: document.getElementById('badge-area')
+  
+
+};
+
+
+  function startGame() {
+    score = 0;
+    timeLeft = 60;
+    currentQuestionIndex = 0;
+    gameActive = true;
+    elements.score.textContent = score;
+    elements.timer.textContent = timeLeft;
+    elements.startButton.classList.add('d-none');
+    elements.gameButtons.classList.remove('d-none');
+    elements.gameOverMessage.classList.add('d-none');
+    elements.truthButton.disabled = false;
+    elements.mythButton.disabled = false;
+    elements.feedback.textContent = '';
+    elements.feedback.className = 'py-2 fw-bold';
+    elements.endButton.disabled = false;
+
+    questions.sort(() => Math.random() - 0.5);
+    startTimer();
+    displayQuestion();
+  }
+
+  function startTimer() {
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      elements.timer.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        endGame();
+      }
+    }, 1000);
+  }
+
+  function displayQuestion() {
+    const current = questions[currentQuestionIndex];
+    elements.questionText.textContent = current.q;
+    elements.topicTag.textContent = `Topic: ${current.topic}`;
+  }
+
+  function checkAnswer(userAnswer) {
+  if (!gameActive) return;
+
+  const correctAnswer = questions[currentQuestionIndex].a;
+  const isCorrect = (userAnswer === 'truth' && correctAnswer) || (userAnswer === 'myth' && !correctAnswer);
+
+  const correctSound = document.getElementById('correct-sound');
+  const wrongSound = document.getElementById('wrong-sound');
+
+  if (isCorrect) {
+    score += 10;
+    elements.feedback.textContent = "✅ CORRECT! +10 Points";
+    elements.feedback.className = 'py-2 fw-bold text-success';
+    correctSound.play(); // 🔊 Play correct sound
+  } else {
+    score -= 5;
+    elements.feedback.textContent = "❌ INCORRECT! -5 Points";
+    elements.feedback.className = 'py-2 fw-bold text-danger';
+    wrongSound.play(); // 🔊 Play wrong sound
+  }
+
+  elements.score.textContent = score;
+
+  setTimeout(() => {
+    currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+    displayQuestion();
+    elements.feedback.textContent = '';
+    elements.feedback.className = 'py-2 fw-bold';
+  }, 800);
+}
+
+
+  function endGame() {
+  clearInterval(timerInterval);
+  gameActive = false;
+  elements.questionText.textContent = "⏳ Time's up!";
+  elements.gameButtons.classList.add('d-none');
+  elements.gameOverMessage.classList.remove('d-none');
+  elements.finalScore.textContent = score;
+  elements.endButton.disabled = true;
+
+  showBadge(score);
+  submitScore();
+
+  // 🔊 Play game-over sound
+  const sound = document.getElementById('game-over-sound');
+  if (sound) sound.play();
+}
+
+
+  function showBadge(score) {
+    let badgeHTML = '';
+    if (score >= 60) {
+      badgeHTML = '<span class="badge bg-success fs-5">🌟 Eco Genius</span>';
+    } else if (score >= 30) {
+      badgeHTML = '<span class="badge bg-warning text-dark fs-5">🌱 Green Learner</span>';
+    } else {
+      badgeHTML = '<span class="badge bg-danger fs-5">💡 Keep Learning</span>';
+    }
+    elements.badgeArea.innerHTML = badgeHTML;
+  }
+
+  function submitScore() {
+    const name = document.getElementById('player-name').value.trim();
+    if (!name) return;
+
+    fetch('/game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `name=${encodeURIComponent(name)}&score=${score}`
+    });
+  }
+
+  elements.startButton.addEventListener('click', startGame);
+  elements.truthButton.addEventListener('click', () => checkAnswer('truth'));
+  elements.mythButton.addEventListener('click', () => checkAnswer('myth'));
+  elements.endButton.addEventListener('click', endGame);
+  
+  
+  function shareWhatsApp() {
+  const name = document.getElementById('player-name').value.trim() || "Someone";
+  const score = elements.finalScore.textContent;
+  const message = `🌿 ${name} scored ${score} in the Green IT Challenge! 💡♻️\nThink you can beat that?\nPlay now: https://yourdomain.com/game\n#GreenTechHero #EcoGenius #SustainableIT`;
+
+  const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+}
+
+
+function shareTwitter() {
+  const name = document.getElementById('player-name').value.trim() || "Someone";
+  const score = elements.finalScore.textContent;
+  const message = `🌿 ${name} scored ${score} in the Green IT Challenge! Test your eco-knowledge:`;
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}&url=https://yourdomain.com/game`;
+
+  window.open(tweetUrl, '_blank');
+}
+function showQR() {
+  const qr = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://yourdomain.com/game" alt="QR Code">`;
+  document.getElementById('qr-container').innerHTML = qr;
+  document.getElementById('qr-container').classList.remove('d-none');
+}
+function showEcoFact(topic) {
+  const facts = {
+    "Energy": "💡 Sleep mode saves energy, but shutdown saves even more!",
+    "E-Waste": "📱 Recycle phones responsibly — they contain rare metals.",
+    "Hardware": "🛠️ Manufacturing a PC emits more CO₂ than using it for a year!"
+  };
+  alert(facts[topic] || "🌿 Learn more at your local e-waste center!");
+}
+showEcoFact(questions[currentQuestionIndex].topic);
+
+
+</script>
+{% endblock %}
