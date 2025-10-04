@@ -8,7 +8,11 @@ app = Flask(__name__)
 app.secret_key = "greenTechSecret"
 
 # Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///footprints.db'
+# पुरानी लाइन:
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///footprints.db' 
+
+# नई लाइन: Render के डिस्क पाथ का उपयोग करें
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////var/data/footprints.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
