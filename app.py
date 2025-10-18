@@ -2,6 +2,9 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask import Flask
+app = Flask(__name__)
+
 
 # SQLAlchemy ऑब्जेक्ट को यहाँ initialize करें, लेकिन app से नहीं।
 # इसे global scope में रखें ताकि models इसे एक्सेस कर सकें।
@@ -75,9 +78,6 @@ application = create_app()
 def home():
     return render_template('index.html', hide_hero=False)
 
-@application.route('/donate')
-def donate():
-    return render_template('donate.html', hide_hero=False)
 
 @application.route('/about')
 def about():
